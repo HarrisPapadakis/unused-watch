@@ -1,0 +1,97 @@
+class Human:
+    def __init__(self, name, age, gender, occupation):
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.occupation = occupation
+
+    def display_info(self):
+        print("Name:", self.name)
+        print("Age:", self.age)
+        print("Gender:", self.gender)
+        print("Occupation:", self.occupation)
+
+def insert_info():
+    name = input("Enter name: ")
+    age = input("Enter age: ")
+    gender = input("Enter gender: ")
+    occupation = input("Enter occupation: ")
+    return Human(name, age, gender, occupation)
+
+def edit_info(human):
+    attribute = input("Enter the attribute to edit (name, age, gender, occupation): ")
+    if attribute == "name":
+        human.name = input("Enter new name: ")
+    elif attribute == "age":
+        human.age = input("Enter new age: ")
+    elif attribute == "gender":
+        human.gender = input("Enter new gender: ")
+    elif attribute == "occupation":
+        human.occupation = input("Enter new occupation: ")
+    else:
+        print("Invalid attribute")
+
+def delete_info(human_dict):
+    name = input("Enter the name of the person to delete: ")
+    if name in human_dict:
+        del human_dict[name]
+        print("Person deleted successfully")
+    else:
+        print("Person not found")
+
+def save_info(human_dict):
+    with open("humans.txt", "w") as file:
+        for name, human in human_dict.items():
+            file.write(f"{name},{human.age},{human.gender},{human.occupation}\n")
+    print("Data saved successfully")
+
+def load_info():
+    human_dict = {}
+    try:
+        with open("humans.txt", "r") as file:
+            for line in file:
+                data = line.strip().split(",")
+                human_dict[data[0]] = Human(data[0], data[1], data[2], data[3])
+        print("Data loaded successfully")
+    except FileNotFoundError:
+        print("No data file found. Starting with empty data.")
+    return human_dict
+
+def display_all(human_dict):
+    for name, human in human_dict.items():
+        print("\nPerson:", name)
+        human.display_info()
+
+def menu():
+    human_dict = load_info()
+    while True:
+        print("\nMenu:")
+        print("a. Insert Human Information")
+        print("b. Edit Human Information")
+        print("c. Delete Human Information")
+        print("d. Save Human Information")
+        print("e. Display Human Information")
+        print("f. Exit")
+        choice = input("Enter your choice: ")
+        if choice == "a":
+            human = insert_info()
+            human_dict[human.name] = human
+        elif choice == "b":
+            name = input("Enter the name of the person to edit: ")
+            if name in human_dict:
+                edit_info(human_dict[name])
+            else:
+                print("Person not found")
+        elif choice == "c":
+            delete_info(human_dict)
+        elif choice == "d":
+            save_info(human_dict)
+        elif choice == "e":
+            display_all(human_dict)
+        elif choice == "f":
+            break
+        else:
+            print("Invalid choice")
+
+menu()
+
