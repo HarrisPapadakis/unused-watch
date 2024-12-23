@@ -1,0 +1,24 @@
+// Function to calculate area and perimeter of a rectangle
+function calculateRectangle() {
+    // Prompt user for length and width
+    let length = parseFloat(prompt("Enter the length of the rectangle:"));
+    let width = parseFloat(prompt("Enter the width of the rectangle:"));
+
+    // Validate user input
+    if (isNaN(length) || isNaN(width) || length <= 0 || width <= 0) {
+        alert("Please enter valid positive numbers for length and width.");
+        return;
+    }
+
+    // Calculate area and perimeter
+    let area = length * width;
+    let perimeter = 2 * (length + width);
+
+    // Display the results
+    alert(`Rectangle Properties:
+    - Area: ${area} 
+    - Perimeter: ${perimeter}`);
+}
+
+// Call the function
+calculateRectangle();
