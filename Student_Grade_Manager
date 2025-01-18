@@ -1,0 +1,66 @@
+# Function to add a student and their grade
+def add_student(students, name, grade):
+    """Add a new student and their grade to the list."""
+    students[name] = grade
+    print(f"Student {name} with grade {grade} has been added.")
+
+# Function to display all students and their grades
+def display_students(students):
+    """Display all students and their grades."""
+    if not students:
+        print("No students to display.")
+        return
+    print("Students and their grades:")
+    for name, grade in students.items():
+        print(f"{name}: {grade}")
+
+# Function to calculate the average grade
+def calculate_average(students):
+    """Calculate and return the average grade."""
+    if not students:
+        print("No students to calculate the average grade.")
+        return
+    average = sum(students.values()) / len(students)
+    print(f"The average grade is: {average:.2f}")
+
+# Function to find the top student
+def find_top_student(students):
+    """Find and display the student with the highest grade."""
+    if not students:
+        print("No students to find the top student.")
+        return
+    top_student = max(students, key=students.get)
+    print(f"The top student is {top_student} with a grade of {students[top_student]}.")
+
+# Main program
+def main():
+    students = {}  # Dictionary to store students and their grades
+    while True:
+        print("\nStudent Grade Manager")
+        print("1. Add Student")
+        print("2. Display Students")
+        print("3. Calculate Average Grade")
+        print("4. Find Top Student")
+        print("5. Exit")
+        
+        choice = input("Enter your choice: ")
+        
+        if choice == "1":
+            name = input("Enter student's name: ")
+            grade = float(input("Enter student's grade: "))
+            add_student(students, name, grade)
+        elif choice == "2":
+            display_students(students)
+        elif choice == "3":
+            calculate_average(students)
+        elif choice == "4":
+            find_top_student(students)
+        elif choice == "5":
+            print("Exiting the program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+# Run the program
+if __name__ == "__main__":
+    main()
