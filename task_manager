@@ -1,24 +1,29 @@
-mport json
+import json
 import os
 
+# File to store tasks
 task_file = "tasks.json"
 
+# Load tasks from the JSON file
 def load_tasks():
     if os.path.exists(task_file):
         with open(task_file, "r") as file:
             return json.load(file)
     return []
 
+# Save tasks to the JSON file
 def save_tasks(tasks):
     with open(task_file, "w") as file:
         json.dump(tasks, file, indent=4)
 
+# Add a new task to the list
 def add_task(description):
     tasks = load_tasks()
     tasks.append({"description": description, "completed": False})
     save_tasks(tasks)
     print("Task added successfully.")
 
+# List all tasks
 def list_tasks():
     tasks = load_tasks()
     if not tasks:
@@ -28,6 +33,7 @@ def list_tasks():
         status = "[X]" if task["completed"] else "[ ]"
         print(f"{idx}. {status} {task['description']}")
 
+# Mark a task as completed
 def complete_task(task_index):
     tasks = load_tasks()
     if 0 < task_index <= len(tasks):
@@ -37,6 +43,7 @@ def complete_task(task_index):
     else:
         print("Invalid task number.")
 
+# Delete a task from the list
 def delete_task(task_index):
     tasks = load_tasks()
     if 0 < task_index <= len(tasks):
@@ -46,6 +53,7 @@ def delete_task(task_index):
     else:
         print("Invalid task number.")
 
+# Main function to handle user interaction
 def main():
     while True:
         print("\nTask Manager")
@@ -81,5 +89,7 @@ def main():
         else:
             print("Invalid choice, please try again.")
 
+# Run the main function if script is executed directly
 if __name__ == "__main__":
     main()
+
