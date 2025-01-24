@@ -1,4 +1,4 @@
-# Create an empty list to store Konoha ninjas
+# Create an empty list to store Konoha ninjas with data 
 Konoha_Ninjas = []
 
 # Define dictionaries for each ninja and append them to the list
