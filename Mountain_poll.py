@@ -1,4 +1,5 @@
-# Create an empty dictionary to store responses
+# Create an empty dictionary to store responses 
+
 responses = {}
 
 # Set a flag to indicate that the polling process is active
