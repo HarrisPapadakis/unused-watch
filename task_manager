@@ -6,90 +6,98 @@ task_file = "tasks.json"
 
 # Load tasks from the JSON file
 def load_tasks():
+    # Check if the tasks file exists, if so, read and load the tasks from it
     if os.path.exists(task_file):
         with open(task_file, "r") as file:
             return json.load(file)
-    return []
+    return []  # Return an empty list if the file doesn't exist
 
 # Save tasks to the JSON file
 def save_tasks(tasks):
+    # Write the tasks list to the file in JSON format with indentation for readability
     with open(task_file, "w") as file:
         json.dump(tasks, file, indent=4)
 
 # Add a new task to the list
 def add_task(description):
-    tasks = load_tasks()
-    tasks.append({"description": description, "completed": False})
-    save_tasks(tasks)
+    tasks = load_tasks()  # Load existing tasks
+    tasks.append({"description": description, "completed": False})  # Add new task
+    save_tasks(tasks)  # Save updated task list
     print("Task added successfully.")
 
 # List all tasks
 def list_tasks():
-    tasks = load_tasks()
+    tasks = load_tasks()  # Load tasks from the file
     if not tasks:
         print("No tasks found.")
         return
+    # Display tasks with their index and status
     for idx, task in enumerate(tasks, 1):
         status = "[X]" if task["completed"] else "[ ]"
         print(f"{idx}. {status} {task['description']}")
 
 # Mark a task as completed
 def complete_task(task_index):
-    tasks = load_tasks()
-    if 0 < task_index <= len(tasks):
-        tasks[task_index - 1]["completed"] = True
-        save_tasks(tasks)
+    tasks = load_tasks()  # Load tasks
+    if 0 < task_index <= len(tasks):  # Check if index is valid
+        tasks[task_index - 1]["completed"] = True  # Mark task as completed
+        save_tasks(tasks)  # Save updated tasks
         print("Task marked as completed.")
     else:
-        print("Invalid task number.")
+        print("Invalid task number.")  # Handle invalid input
 
 # Delete a task from the list
 def delete_task(task_index):
-    tasks = load_tasks()
-    if 0 < task_index <= len(tasks):
-        tasks.pop(task_index - 1)
-        save_tasks(tasks)
+    tasks = load_tasks()  # Load tasks
+    if 0 < task_index <= len(tasks):  # Check if index is valid
+        tasks.pop(task_index - 1)  # Remove the selected task
+        save_tasks(tasks)  # Save updated tasks
         print("Task deleted successfully.")
     else:
-        print("Invalid task number.")
+        print("Invalid task number.")  # Handle invalid input
 
 # Main function to handle user interaction
 def main():
     while True:
+        # Display the menu options
         print("\nTask Manager")
         print("1. Add Task")
         print("2. List Tasks")
         print("3. Complete Task")
         print("4. Delete Task")
         print("5. Exit")
+        
         choice = input("Choose an option: ")
 
         if choice == "1":
+            # Prompt user to add a task description
             desc = input("Enter task description: ")
             add_task(desc)
         elif choice == "2":
+            # List all tasks
             list_tasks()
         elif choice == "3":
+            # Mark a task as completed
             list_tasks()
             try:
                 task_no = int(input("Enter task number to complete: "))
                 complete_task(task_no)
             except ValueError:
-                print("Invalid input.")
+                print("Invalid input.")  # Handle non-numeric input
         elif choice == "4":
+            # Delete a task
             list_tasks()
             try:
                 task_no = int(input("Enter task number to delete: "))
                 delete_task(task_no)
             except ValueError:
-                print("Invalid input.")
+                print("Invalid input.")  # Handle non-numeric input
         elif choice == "5":
-            print("Goodbye!")
+            print("Goodbye!")  # Exit the program
             break
         else:
-            print("Invalid choice, please try again.")
+            print("Invalid choice, please try again.")  # Handle incorrect menu choice
 
 # Run the main function if script is executed directly
 if __name__ == "__main__":
     main()
-
